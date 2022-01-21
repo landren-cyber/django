@@ -1,0 +1,17 @@
+{% extends "test_app/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+  <div class="rov">
+    <form class="" action="{% url 'accounts:update_profile' %}" method="post">
+        {{editprofile.as_p}}
+        {% csrf_token %}
+        <button type="submit" name="button" class="btn btn-primary">Отправить</button>
+    </form>
+
+
+  </div>
+</div>
+
+{% endblock %}

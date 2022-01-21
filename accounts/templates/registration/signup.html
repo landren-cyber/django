@@ -1,0 +1,15 @@
+{% extends "test_app/base.html" %}
+{% load static %}
+{% block content %}
+<div class="rov">
+  <form class="profile" method="post">
+    <div class="mb-3">
+    {% csrf_token %}
+    {{form.as_p}}
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить</button>
+    <a class="btn btn-primary" href="{% url 'login' %}">Страница авторизации</a>
+  </form>
+</div>
+
+{% endblock %}

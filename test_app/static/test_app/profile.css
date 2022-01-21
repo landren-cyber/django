@@ -1,0 +1,7 @@
+.head {
+  font: bold calc(.025 * (100vw)) 'Verdana';
+}
+
+.mypage {
+  list-style-type: none;
+}

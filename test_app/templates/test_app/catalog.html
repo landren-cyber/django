@@ -1,0 +1,27 @@
+{% extends 'test_app/base.html' %}
+{% load static %}
+  {% block content %}
+  <div class="container">
+    <h1 class="maintitle" align="center">Товары:</h1>
+    <div class="rov">
+    {% for product in products %}
+      <div class="col-lg-6 product_card">
+        <div class="product_card_form" method="post">
+          <figure>
+            <a href="{{product.get_absolute_url}}"><img class="prev" src={{product.get_title_image.image.url}} /></a>
+          </figure>
+          <div class="description">
+            <h3><a href="{{product.get_absolute_url}}">{{product.name}}</a></h3>
+            <p>{{product.product_information}}</p>
+            <p>{{product.description}}</p>
+            <p><strong>Цена:</strong>&nbsp;{{product.price}}</p>
+            <p><strong>Остаток:</strong>&nbsp;{{product.stock}}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    </div>
+    {% endblock content %}
+
+    

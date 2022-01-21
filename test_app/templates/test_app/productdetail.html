@@ -1,0 +1,115 @@
+{% extends 'test_app/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'test_app:catalog' %}">Каталог</a></li>
+    <li class="breadcrumb-item"><a href="{{product.category.get_absolute_url}}">{{product.category.name}}</a></li>
+    <li class="breadcrumb-item active" aria-current="page"<a href="{{get_absolute_url}}">{{product.name}}</a></li>
+  </ol>
+</nav>
+<div class="vrap">
+  <aside class="product_image">
+    <div class="pic">
+      <img class="first" src="{% if product.get_title_image %}{{product.get_title_image.image.url}}{% else %}{% static "img/no_image.png" %}{% endif %}" alt='{{product_name}}' />
+      {% for image in product.get_images %}
+      <img class="second" src="{{image.image.url}}" alt="">
+      {% endfor %}
+    </div>
+  </aside>
+  <main class="product_description">
+    <div class="description details">
+    <h2>{{product.name}}</h2>
+      <p>Наличие:
+        {% if product.stock > 0 and product.available %}
+          Есть в наличии
+        {% else %}
+          Нет в наличии
+        {% endif %}
+      </p>
+      <p>{{product.description|linebreaks}}</p>
+      <p><strong>Цена:</strong>&nbsp;{{product.price}}</p>
+      <p><strong>Остаток:</strong>&nbsp;{{product.stock}}</p>
+      <form id="productdata" class="form-label" action="{% url 'cart:cart_add' product.id %}" method="post">
+        <div class="quantity">
+          <button id="quantityAdd" class="btn btn-primary" type="button" name="button">+</button>
+          {{cart_product_form.quantity}}
+          <button id="quantitySubtract" class="btn btn-primary" type="button" name="button">-</button>
+        </div>
+        <div class="buttons">
+          <button id="paynow" class="btn btn-primary" type="submit" name="button">Купить сейчас</button>
+          <button id="addtocart" class="btn btn-primary" type="button" name="button">Добавить в корзину</button>
+          <button id="wishlist" class="btn btn-primary" type="button" name="button">&#128525;</button>
+        </div>
+        {% csrf_token %}
+      </form>
+    </div>
+  </main>
+</div>
+</div>
+
+
+<script type="text/javascript">
+  let quantityAdd = document.getElementById('quantityAdd');
+  let quantitySubtract = document.getElementById('quantitySubtract');
+  let quantityInp = document.getElementById('quantityInp');
+  quantityInp.addEventListener('input', function(){
+    if (quantityInp.value < 1) {
+      quantityInp.value = 1;
+    } else if (quantityInp.value > 100) {
+      quantityInp.value = 100;
+    }
+    quantityInp.value = quantityInp.value.replace(/[^0-9]/g,'');
+  })
+  quantityAdd.addEventListener('click', function() {
+    quantityInp.value++;
+    if(quantityInp.value < 1) {
+      quantityInp.value = 1;
+    } else if (quantityInp.value > 100) {
+      quantityInp.value = 100;
+    }
+    })
+  quantitySubtract.addEventListener('click', function() {
+    quantityInp.value--;
+    if(quantityInp.value < 1) {
+      quantityInp.value = 1;
+    } else if (quantityInp.value > 100) {
+      quantityInp.value = 100;
+    }
+  })
+
+  let currentImg = document.querySelector('.product_detail__img img');
+  let menemapImgs = document.querySelectorAll('.minimap_img');
+  minimapImgs.forEach(function(img) {
+    img.addEventListener('click', function(){
+      currentImg.style.opacity = 0;
+      setTimeout(() => {
+        currentImg.src = img.src;
+        currentImg.style.opacity = 1;
+      }, 200)
+    })
+  })
+
+</script>
+
+<script type="text/javascript">
+  function addToCart() {
+    let productData = document.getElementById('productdata');
+    let formData = new FormData(productData);
+    console.log(formData.get('quantity'))
+    let url = 'http://127.0.0.1:8000/cart/add/'+{{product.id}}+'/';
+    let options = {method: 'POST',
+                  headers: {enctype: "multipart/form-data", "Access-Control-Allow-Origin":"*"},
+                  body: formData};
+    fetch(url, options)
+      .then(responce => {console.log(responce, formData)})
+  }
+
+let addtocartbtn = document.getElementById('addtocart');
+addtocartbtn.addEventListener('click', addToCart);
+
+
+</script>
+
+{% endblock content %}

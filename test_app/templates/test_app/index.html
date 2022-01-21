@@ -1,0 +1,40 @@
+{% extends 'test_app/base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container">
+
+    <div class="rov">
+      <div class="slider">
+        <div class="viewport">
+            <div class="slide_list">
+                <div class="slide"><img src="https://ae01.alicdn.com/kf/Hc729a6126f72493597a9d52b5834f7f1w/750x300.png" alt=""></div>
+                <div class="slide"><img src="https://ae01.alicdn.com/kf/Hbfc2867a0b224916817b787a90084f04e/750x300.png" alt=""></div>
+                <div class="slide"><img src="https://ae01.alicdn.com/kf/H3485ba78fad340608964e2d573351f4f3.png" alt=""></div>
+                <div class="slide"><img src="https://ae01.alicdn.com/kf/H8edf67abfe7d496791c157ad223ec240F/750x300.png" alt=""></div>
+            </div>
+            <button id="prevSlide">&#8249;</button>
+            <button id="nextSlide">&#8250;</button>
+            <div class="sliderNav btn-group" role="group">
+                <ul>
+                    <li><button class="btn btn-primary">1</button></li>
+                    <li><button class="btn btn-primary">2</button></li>
+                    <li><button class="btn btn-primary">3</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="rov">
+      <aside class="">
+
+      </aside>
+      <main class="">
+        
+      </main>
+    </div>
+
+  </div>
+
+  <script src="{% static 'test_app/slider.js' %}"></script>
+{% endblock content %}

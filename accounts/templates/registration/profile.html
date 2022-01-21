@@ -1,0 +1,48 @@
+{% extends "test_app/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+  <div class="rov">
+    <aside class="">
+      <div class="profile-menu">
+        <ul class="mypage">
+          <li><a href="#">Мой профиль</a></li>
+          <li><a href="#">Адрес</a></li>
+          <li><a href="#">Платежи</a></li>
+          <li><a href="#">Мои заказы</a></li>
+          <li><a href="#">Отзывы</a></li>
+          <li><a href="#">Список желаний</a></li>
+        </ul>
+      </div>
+      <div class="logout">
+        <a href="#">Выйти:&nbsp<i class="fa fa-sign-out" aria-hidden="true"></i></a>
+      </div>
+    </aside>
+    <main role="main">
+      <article class="profile">
+      <div class="head">
+        <h2>Мой профиль</h2>
+      </div>
+      <!-- <div class="userpic">
+        <figure>
+          <img src="{% static 'images/profile.png' %}" alt="">
+        </figure>
+      </div> -->
+      <div class="info">
+        <ul class="mypage">
+          <li>Имя: {{user.first_name}}</li>
+          <li>Фамилия: {{user.last_name}}</li>
+          <li>Email: {{user.email}}</li>
+        </ul>
+      </div>
+      <div class="reg-data">
+        <span>Зарегистрирован: </span><br />
+        <a href="{% url 'accounts:update_profile' %}" class="btn btn-primary">Редактировать</a>
+      </div>
+      </article>
+    </main>
+  </div>
+</div>
+
+{% endblock %}

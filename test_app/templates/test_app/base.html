@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% block meta %}
+
+  {% endblock meta %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
+  <link rel="stylesheet" href={% static 'test_app/style.css' %}>
+  <link rel="stylesheet" href={% static 'test_app/slider.css' %}>
+  <link rel="stylesheet" href={% static 'test_app/burger.css' %}>
+  <link rel="stylesheet" href={% static 'test_app/profile.css' %}>
+  <link rel="stylesheet" href={% static 'test_app/cart.css' %}>
+  <link rel="stylesheet" href={% static 'test_app/form.css' %}>
+  <script src="https://use.fontawesome.com/40003d2102.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+  <div class="rov">
+    <div class="dropdown">
+  <button class="btn btn-primary">☰</button>
+  <div class="dropdown-content">
+    {% for category in categories %}
+    <a rel="nofollow" rel="noreferrer" href="{{category.get_absolute_url}}">{{category.name}}</a>
+    {% endfor %}
+  </div>
+</div>
+
+    <div class="logoHeader">
+      <a href="{% url 'test_app:index' %}"><img src="{% static 'images/logo.png' %}" alt=""></a>
+    </div>
+
+
+    <a class="btn btn-primary" href="{% url 'test_app:catalog' %}">Каталог</a>
+    <input type="text" name="searchText" value="" class="searchInput" placeholder="Я ищу...">
+    <div class="cartHeader">
+       {% with total_items=cart|length %}<a class="cart" href="{% url 'cart:cart_detail' %}"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+</svg><span>{{ total_items }}</span></a>{%endwith%}
+    </div>
+    <a class="btn btn-outline-primary" href="{% url 'accounts:profile' %}" role="button">Профиль</a>
+  </div>
+
+
+  {% block content %}
+
+  {% endblock content %}
+  </div>
+</body>
+</html>
